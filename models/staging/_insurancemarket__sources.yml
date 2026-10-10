@@ -1,0 +1,13 @@
+
+version: 2
+
+sources:
+  - name: insurancemarket
+    database: INSURANCE_DB_SARAVANA
+    schema: SOURCE
+    tables:
+      - name: CUSTOMERS
+      - name: POLICIES
+      - name: ADVISORS
+      - name: CONVERSIONFUNNEL
+      - name: CAMPAIGNS
