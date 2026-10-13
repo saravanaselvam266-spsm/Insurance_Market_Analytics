@@ -53,4 +53,14 @@ models:
     publish:
       +schema: PUBLISH
       +materialized: view
+      
 
+# Seed configurations
+
+seeds:
+  Insurance_markets:
+    lkp_marketing_channel_group:
+      +quote_columns: false
+      +column_types:
+        SALES_CHANNEL: varchar
+        MARKETING_CHANNEL_GROUP: varchar
