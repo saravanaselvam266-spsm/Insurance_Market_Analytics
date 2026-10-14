@@ -1,0 +1,77 @@
+
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Customer dimension quality checks."
+    columns:
+      - name: customer_sk
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_advisor
+    description: "Advisor dimension quality checks."
+    columns:
+      - name: advisor_sk
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_campaign
+    description: "Campaign dimension quality checks."
+    columns:
+      - name: campaign_sk
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fact_policy
+    description: "Policy fact quality and referential integrity checks."
+    columns:
+      - name: policy_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_sk
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_sk
+
+      - name: advisor_sk
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_advisor')
+                field: advisor_sk
+
+  - name: fact_lead_funnel
+    description: "Lead funnel quality checks."
+    columns:
+      - name: lead_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: dq_stage_sequence_flag
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+
+  - name: fact_campaign_performance
+    description: "Campaign fact quality checks."
+    columns:
+      - name: campaign_sk
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_campaign')
+                field: campaign_sk
